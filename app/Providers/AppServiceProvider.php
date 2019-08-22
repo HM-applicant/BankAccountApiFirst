@@ -13,7 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if (!$this->app->environment('production')) {
+            $this->app->register(TransactionServiceProvider::class);
+        }
+        //TODO implement ServiceProvider for productive environment
     }
 
     /**
