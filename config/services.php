@@ -44,4 +44,8 @@ return [
         ],
     ],
 
+    'transaction_import' => [
+        'url' => 'https://somebank.org/{%s}_{%s}.zip?apikey={%s}',
+        'key' => 'secret'
+    ]
 ];
