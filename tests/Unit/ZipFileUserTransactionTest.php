@@ -33,7 +33,10 @@ class ZipFileUserTransactionTest extends TestCase
 
     public function testGetTransactions()
     {
-        $user = new User('Max', 'Mustermann');
+        $user = new User();
+        $user->id = 1;
+        $user->setFirstName('Max')
+            ->setLastName('Mustermann');
         $date = new DateTime('10-10-2019');
 
         $this->assertCount(

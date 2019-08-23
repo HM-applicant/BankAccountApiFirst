@@ -7,38 +7,16 @@ use DateTime;
 
 class Transaction extends Model
 {
-    /** @var User */
-    private $user;
-
-    /** @var string */
-    private $iban;
-
-    /** @var string */
-    private $subject;
-
-    /** @var float */
-    private $amount;
-
-    /** @var \DateTime */
-    private $createdAt;
-
     /**
-     * Transaction constructor.
-     * @param User      $user
-     * @param string    $iban
-     * @param string    $subject
-     * @param float     $amount
-     * @param \DateTime $createdAt
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
      */
-    public function __construct(User $user, string $iban, string $subject, float $amount, DateTime $createdAt)
-    {
-        $this->user      = $user;
-        $this->iban      = $iban;
-        $this->subject   = $subject;
-        $this->amount    = $amount;
-        $this->createdAt = $createdAt;
+    public $timestamps = false;
 
-        parent::__construct();
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -75,9 +53,39 @@ class Transaction extends Model
 
     /**
      * @return \DateTime
+     *
+     * @throws \Exception
      */
     public function getCreatedAt(): DateTime
     {
-        return $this->createdAt;
+        return new DateTime($this->created_at);
+    }
+
+    public function setUser(User $user)
+    {
+        $this->user_id = $user->getId();
+
+        return $this;
+    }
+
+    public function setIban(string $iban)
+    {
+        $this->iban = $iban;
+
+        return $this;
+    }
+
+    public function setSubject(string $subject)
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    public function setAmount(float $amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
     }
 }

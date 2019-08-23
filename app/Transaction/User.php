@@ -13,28 +13,6 @@ class User extends Model
      */
     protected $table = 'transaction_users';
 
-    /** @var integer */
-    private $id;
-
-    /** @var string */
-    private $firstName;
-
-    /** @var string */
-    private $lastName;
-
-    /**
-     * User constructor.
-     * @param string $firstName
-     * @param string $lastName
-     */
-    public function __construct(string $firstName, string $lastName)
-    {
-        $this->firstName = $firstName;
-        $this->lastName  = $lastName;
-
-        parent::__construct();
-    }
-
     /**
      * @return int
      */
@@ -81,5 +59,10 @@ class User extends Model
         $this->lastName = $lastName;
 
         return $this;
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
     }
 }

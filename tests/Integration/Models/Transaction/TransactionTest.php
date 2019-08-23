@@ -1,40 +1,26 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Integration\Models\Transaction;
 
 use App\Transaction\Transaction;
 use App\Transaction\User;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use DateTime;
 
 class TransactionTest extends TestCase
 {
+    use DatabaseMigrations;
+
     /** @var Transaction */
     private $transaction;
 
+    /** @test */
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->transaction = new Transaction(
-            (new User('Max', 'Mustermann')),
-            'DE201234567890',
-            'stuff',
-            100,
-            (new DateTime('10-10-2019'))
-        );
-    }
-
-    public function testConstructor()
-    {
-        $transaction = new Transaction(
-            (new User('Max', 'Mustermann')),
-            'DE201234567890',
-            'stuff',
-            100,
-            (new DateTime('10-10-2019'))
-        );
-        $this->assertTrue($transaction instanceof Transaction);
+        $this->transaction = factory(Transaction::class)->create();
     }
 
     public function testGetUser()
@@ -50,7 +36,7 @@ class TransactionTest extends TestCase
 
     public function testGetSubject()
     {
-        $this->assertSame($this->transaction->getSubject(), 'stuff');
+        $this->assertSame($this->transaction->getSubject(), 'Test');
     }
 
     public function testGetAmmount()

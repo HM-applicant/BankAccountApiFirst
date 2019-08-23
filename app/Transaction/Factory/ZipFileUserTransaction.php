@@ -142,13 +142,13 @@ class ZipFileUserTransaction implements UserTransaction
                 throw new LogicException('Line does not contain proper csv formatted string: ' . $line);
             }
 
-            $transactions[] = new Transaction(
-                $user,
-                $parsedLine[$ibanKey],
-                $parsedLine[$subjectKey],
-                $parsedLine[$amountKey],
-                (new DateTime($parsedLine[$dateKey]))
-            );
+            $transaction = new Transaction();
+            $transaction->setUser($user)
+                ->setIban($parsedLine[$ibanKey])
+                ->setSubject($parsedLine[$subjectKey])
+                ->setAmount($parsedLine[$amountKey])
+                ->setCreatedAt($parsedLine[$dateKey]);
+            $transactions[] = $transaction;
         }
 
         return $transactions;
